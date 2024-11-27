@@ -17,12 +17,13 @@ def main():
     2. Ver lista de tipos de impuestos
     3. Salir
     ---------------------------------------------------
-
     """)
             selector = int(input("    Seleccione una opcion (1-2-3): "))
 
             if selector == 1:
+                
                 menuOne()
+                
                 
                 
             elif selector == 2:
