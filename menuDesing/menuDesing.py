@@ -4,6 +4,7 @@ from logic.logicMt import tax,specialTax,localTax, personalTax
 def menuOne():
     
     priceArray = []
+    priceTaxArray =[]
     while True:
         try:
     
@@ -33,16 +34,17 @@ def menuOne():
                 
                 if selector == 1:
                     
-                    ivaTotal = tax(price)
+                    taxTotal = tax(price)
                     
-                    priceArray.append(ivaTotal)
-                    break
+                    priceArray.append(taxTotal)
+                    priceTaxArray.append({"IVA(10%)":taxTotal})
+                    
                     
                 elif selector == 2:
                     specialTotal = specialTax(price)
                     
                     priceArray.append(specialTotal)
-                    break
+                    priceTaxArray.append({"Impuesto Especial (5%)":taxTotal})
                     
                     
                 elif selector == 3:
@@ -50,14 +52,17 @@ def menuOne():
                     localTotal = localTax(price)
                     
                     priceArray.append(localTotal)
-                    break
+                    priceTaxArray.append({"Impuesto Local (8%)":taxTotal})
+                    
+                    
+                    
                 
                 elif selector == 4:
                     personal =float(input("    Ingrese el valor del impuesto (en porcentaje) si seleccionó -Otro-: "))
                     personalTotal = personalTax(price,personal)
                     
                     priceArray.append(personalTotal)
-                    break
+                    priceTaxArray.append({f"Otro ({personal})":taxTotal})
                     
         
                 print("""
@@ -84,8 +89,9 @@ def menuOne():
     ---------------------------------------------------
     Precio base {priceArray[0]}
     Impuesto(s):
-    - iva (10%){priceArray}
-    - Impuesto Especial (5%): $[valor del impuesto especial]
+    
+    {" ".join(map(priceTaxArray))}
+    
     Total con impuestos:{taxTotal}
     """)
 
