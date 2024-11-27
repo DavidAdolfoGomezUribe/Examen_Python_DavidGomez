@@ -1,5 +1,5 @@
 from logic.logicMt import tax,specialTax,localTax, personalTax
-
+import pandas as pd
 
 def menuOne():
     
@@ -44,7 +44,7 @@ def menuOne():
                     specialTotal = specialTax(price)
                     
                     priceArray.append(specialTotal)
-                    priceTaxArray.append({"Impuesto Especial (5%)":taxTotal})
+                    priceTaxArray.append({"Impuesto Especial (5%)": specialTotal})
                     
                     
                 elif selector == 3:
@@ -52,7 +52,7 @@ def menuOne():
                     localTotal = localTax(price)
                     
                     priceArray.append(localTotal)
-                    priceTaxArray.append({"Impuesto Local (8%)":taxTotal})
+                    priceTaxArray.append({"Impuesto Local (8%)":localTotal})
                     
                                                         
                 elif selector == 4:
@@ -60,7 +60,7 @@ def menuOne():
                     personalTotal = personalTax(price,personal)
                     
                     priceArray.append(personalTotal)
-                    priceTaxArray.append({f"Otro ({personal})":taxTotal})
+                    priceTaxArray.append({f"Otro ({personal})":personalTotal})
                     
                     
         
@@ -81,23 +81,24 @@ def menuOne():
             
             
             taxTotal = sum(priceArray)
-            araryLen = len(priceTaxArray)
-            print(araryLen)
+            
+            dicc = pd.DataFrame(priceTaxArray)
+            
             print(f"""
                   
     ---------------------------------------------------
                 RESULTADO DEL CÁLCULO
     ---------------------------------------------------
     Precio base: {priceArray[0]}
-    Impuesto(s): """)
+    Impuesto(s): 
+    """)
     
     
-            print(f"""    {priceTaxArray}""")
-                
+            print(f"""{dicc}""")                
                  
     
             print(f""" 
-    Total con impuestos:{taxTotal}
+    Total con impuestos:{taxTotal} pesos
     """)
 
 
@@ -109,6 +110,10 @@ def menuOne():
             
             awnser = int(input("    :"))
             if awnser == 1:
+                
+                priceArray = []
+                priceTaxArray =[]
+    
                 pass
             elif awnser == 2:
                 break
