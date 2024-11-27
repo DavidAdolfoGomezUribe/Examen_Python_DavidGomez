@@ -1,5 +1,7 @@
 from logic.logicMt import tax,specialTax,localTax, personalTax
 import pandas as pd
+import os
+import time 
 
 def menuOne():
     
@@ -30,40 +32,43 @@ def menuOne():
     3. Impuesto Local (8%)
     4. Otro (permite ingresar una tasa personalizada)
     """)
-                selector = int(input("    :"))
-                
-                if selector == 1:
+                while True:
+                    selector = int(input("    :"))
                     
-                    taxTotal = tax(price)
+                    if selector == 1:
+                        
+                        taxTotal = tax(price)
+                        
+                        priceArray.append(taxTotal)
+                        priceTaxArray.append({"IVA(10%)":taxTotal})
+                        break
+                        
+                    elif selector == 2:
+                        specialTotal = specialTax(price)
+                        
+                        priceArray.append(specialTotal)
+                        priceTaxArray.append({"Impuesto Especial (5%)": specialTotal})
+                        break
+                        
+                    elif selector == 3:
+                        
+                        localTotal = localTax(price)
+                        
+                        priceArray.append(localTotal)
+                        priceTaxArray.append({"Impuesto Local (8%)":localTotal})
+                        break
+                                                            
+                    elif selector == 4:
+                        personal =float(input("    Ingrese el valor del impuesto (en porcentaje) si seleccionó -Otro-: "))
+                        personalTotal = personalTax(price,personal)
+                        
+                        priceArray.append(personalTotal)
+                        priceTaxArray.append({f"Otro ({personal})":personalTotal})
+                        break
+                    else :
+                        print("    Elija una opcion valida")
                     
-                    priceArray.append(taxTotal)
-                    priceTaxArray.append({"IVA(10%)":taxTotal})
-                    
-                    
-                elif selector == 2:
-                    specialTotal = specialTax(price)
-                    
-                    priceArray.append(specialTotal)
-                    priceTaxArray.append({"Impuesto Especial (5%)": specialTotal})
-                    
-                    
-                elif selector == 3:
-                    
-                    localTotal = localTax(price)
-                    
-                    priceArray.append(localTotal)
-                    priceTaxArray.append({"Impuesto Local (8%)":localTotal})
-                    
-                                                        
-                elif selector == 4:
-                    personal =float(input("    Ingrese el valor del impuesto (en porcentaje) si seleccionó -Otro-: "))
-                    personalTotal = personalTax(price,personal)
-                    
-                    priceArray.append(personalTotal)
-                    priceTaxArray.append({f"Otro ({personal})":personalTotal})
-                    
-                    
-        
+            
                 print("""
     
     ---------------------------------------------------
@@ -81,6 +86,8 @@ def menuOne():
             
             
             taxTotal = sum(priceArray)
+
+            priceTaxArray.append({"precio base ": price ,"total + impuestos": taxTotal})
             
             dicc = pd.DataFrame(priceTaxArray)
             
@@ -106,6 +113,7 @@ def menuOne():
     ¿Desea hacer otro cálculo?
     1. Sí
     2. No (Regresa al menú principal)
+    3. Guardar reporte y salir
     ---------------------------------------------------""")
             
             awnser = int(input("    :"))
@@ -113,10 +121,36 @@ def menuOne():
                 
                 priceArray = []
                 priceTaxArray =[]
+                
     
                 pass
+            
             elif awnser == 2:
                 break
+            
+            
+            elif awnser == 3:
+                
+                contador = 1
+                
+                os.makedirs("databases/", exist_ok=True)
+                
+                
+                output_path = os.path.join("databases/", "Report.xlsx")
+                while os.path.exists(output_path):
+                    contador += 1
+                    output_path = os.path.join("databases/", f"Report{contador}.xslx")
+                
+                
+                dicc.to_excel(output_path, sheet_name="Hoja1", index=False) 
+                
+                print(f"\n    Reporte guardado exitosamente en {output_path}")
+                
+                time.sleep(1)
+                
+                break
+            
+            
             else:
                 print("    Seleccione una opcion valida")
             
@@ -125,6 +159,14 @@ def menuOne():
             pass
         except KeyboardInterrupt:
             pass
+        
+        
+        
+        
+        
+        
+        
+        
         
 def menuTwo():
     
