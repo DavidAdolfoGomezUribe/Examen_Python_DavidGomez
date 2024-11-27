@@ -54,15 +54,14 @@ def menuOne():
                     priceArray.append(localTotal)
                     priceTaxArray.append({"Impuesto Local (8%)":taxTotal})
                     
-                    
-                    
-                
+                                                        
                 elif selector == 4:
                     personal =float(input("    Ingrese el valor del impuesto (en porcentaje) si seleccionó -Otro-: "))
                     personalTotal = personalTax(price,personal)
                     
                     priceArray.append(personalTotal)
                     priceTaxArray.append({f"Otro ({personal})":taxTotal})
+                    
                     
         
                 print("""
@@ -77,21 +76,27 @@ def menuOne():
                 
                 if solution == 1:
                     pass
-                if solution == 2:
+                elif solution == 2:
                     break
             
             
             taxTotal = sum(priceArray)
+            araryLen = len(priceTaxArray)
+            print(araryLen)
             print(f"""
                   
     ---------------------------------------------------
                 RESULTADO DEL CÁLCULO
     ---------------------------------------------------
-    Precio base {priceArray[0]}
-    Impuesto(s):
+    Precio base: {priceArray[0]}
+    Impuesto(s): """)
     
-    {" ".join(map(priceTaxArray))}
     
+            print(f"""    {priceTaxArray}""")
+                
+                 
+    
+            print(f""" 
     Total con impuestos:{taxTotal}
     """)
 
@@ -111,14 +116,45 @@ def menuOne():
                 print("    Seleccione una opcion valida")
             
             
-            
-            
-            
-            
-            
-            
-            
         except ValueError:
             pass
         except KeyboardInterrupt:
             pass
+        
+def menuTwo():
+    
+            try:
+                print(f""" 
+    ---------------------------------------------------
+                TIPOS DE IMPUESTOS
+    ---------------------------------------------------
+    1. IVA (10%)
+    2. Impuesto Especial (5%)
+    3. Impuesto Local (8%)
+    4. Otro (Personalizado)
+
+    ¿Desea calcular un impuesto ahora?
+    1. Sí (Regresa al cálculo)
+    2. No (Regresa al menú principal)
+    ---------------------------------------------------
+                      
+                      """)                
+                selector = int(input("    :"))
+                
+                if selector == 1 :
+                    menuOne()
+                elif selector == 2 :
+                    pass
+                else:
+                    print("""    Seleccione una opcion valida""")
+            
+            
+            except ValueError:
+                pass
+            except KeyboardInterrupt:
+                pass
+        
+                
+            
+        
+        # last line of code

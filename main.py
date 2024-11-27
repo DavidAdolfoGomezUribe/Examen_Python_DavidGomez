@@ -1,4 +1,4 @@
-from menuDesing.menuDesing import menuOne
+from menuDesing.menuDesing import menuOne, menuTwo
 
 import time
 
@@ -27,7 +27,8 @@ def main():
                 
                 
             elif selector == 2:
-                pass
+                menuTwo()
+                
             elif selector == 3:
                 print("")
                 print("¡Gracias por usar la Calculadora de Impuestos. ¡Hasta luego!")
