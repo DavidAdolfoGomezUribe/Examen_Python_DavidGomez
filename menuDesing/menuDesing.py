@@ -139,7 +139,7 @@ def menuOne():
                 output_path = os.path.join("databases/", "Report.xlsx")
                 while os.path.exists(output_path):
                     contador += 1
-                    output_path = os.path.join("databases/", f"Report{contador}.xslx")
+                    output_path = os.path.join("databases/", f"Report_{contador}.xslx")
                 
                 
                 dicc.to_excel(output_path, sheet_name="Hoja1", index=False) 
