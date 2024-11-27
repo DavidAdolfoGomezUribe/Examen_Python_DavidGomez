@@ -1,4 +1,4 @@
-from menuDesing.menuDesing import hello
+from menuDesing.menuDesing import menuOne
 
 import time
 
@@ -22,10 +22,16 @@ def main():
             selector = int(input("    Seleccione una opcion (1-2-3): "))
 
             if selector == 1:
-                pass
+                menuOne()
+                
+                
             elif selector == 2:
                 pass
             elif selector == 3:
+                print("")
+                print("¡Gracias por usar la Calculadora de Impuestos. ¡Hasta luego!")
+                print("")
+                time.sleep(1)
                 break
             else:
                 print("    Seleccione una opcion valida")
